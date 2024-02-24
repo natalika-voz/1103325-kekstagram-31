@@ -1,9 +1,5 @@
 function checkStringLength(string, length) {
-  if (string.length <= length) {
-    return true;
-  } else {
-    return false;
-  }
+  return string.length <= length;
 }
 
 checkStringLength('проверяемая строка', 20); // true
@@ -17,11 +13,8 @@ function checkIsPalindrom(string) {
     reversed = string[i] + reversed;
   }
 
-  if (string === reversed) {
-    return true;
-  } else {
-    return false;
-  }
+  return string === reversed;
 }
+
 checkIsPalindrom('mom');//true
 checkIsPalindrom('academy');//false
