@@ -76,6 +76,4 @@ function generateComments(length = 30) {
   return result;
 }
 
-const posts = generatePosts();
-
-console.log(posts);
+generatePosts();
