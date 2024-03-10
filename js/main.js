@@ -1,5 +1,8 @@
 // сделать функцию которая возвращает массив из 25 объектов
 // структура каждого объекта содержит: id, url, description, likes, comments
+const MOCK_POSTS_COUNT = 25;
+const MOCK_COMMENTS_COUNT = 30;
+
 const NAMES = [
   'Иван',
   'Дарья',
@@ -7,7 +10,7 @@ const NAMES = [
   'Елена',
   'Виктор',
   'Юлия',
-  'Артём',
+  'Алексей',
   'Андрей',
 ];
 
@@ -39,41 +42,24 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
+const generatePost = (_, index) => ({
+  id: index + 1,
+  url: `photos/${index + 1}.jpg`,
+  description: DESCRIPTION[getRandomInteger(0, DESCRIPTION.length - 1)],
+  likes: getRandomInteger(15, 200),
+  comments: generateComments(),
+});
+
 // функция, которая создает массив из 25 объектов (постов)
-function generatePosts(length = 25) {
-  //создаем сначала пустой массив
-  const result = [];
+const generatePosts = (length = MOCK_POSTS_COUNT) => Array.from({ length: length }, generatePost);
 
-  // добавляем в массив объекты (посты)
-  for (let i = 1; i <= length; i += 1) {
-    result.push({
-      id: i,
-      url: `photos/${i}.jpg`,
-      description: DESCRIPTION[getRandomInteger(0, DESCRIPTION.length - 1)],
-      likes: getRandomInteger(15, 200),
-      comments: generateComments(),
-    });
-  }
-
-  return result;
-}
-
-
-function generateComments(length = 30) {
-  //создаем сначала пустой массив
-  const result = [];
-
-  // добавляем в массив объекты (комментарии)
-  for (let i = 1; i <= length; i += 1) {
-    result.push({
-      id: getRandomInteger(0, 2000),
-      avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-      message: COMMENTS[getRandomInteger(0, COMMENTS.length - 1)],
-      name: NAMES[getRandomInteger(0, NAMES.length - 1)],
-    });
-  }
-
-  return result;
+function generateComments(length = MOCK_COMMENTS_COUNT) {
+  return Array.from({ length: length }, (_, index) => ({
+    id: index,
+    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+    message: COMMENTS[getRandomInteger(0, COMMENTS.length - 1)],
+    name: NAMES[getRandomInteger(0, NAMES.length - 1)],
+  }));
 }
 
 generatePosts();
