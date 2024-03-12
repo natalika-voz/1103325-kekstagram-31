@@ -42,26 +42,6 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-// const createRandomIdFromRangeGenerator = (min, max) => {
-//   const previousValues = [];
-
-//   return function () {
-//     let currentValue = getRandomInteger(min,max);
-//     if (previousValues.length >= (max - min + 1)) {
-//       return null;
-//     }
-//     while (previousValues.includes(currentValue)) {
-//       currentValue = getRandomInteger(min,max);
-//     }
-//     previousValues.push(currentValue);
-//     return currentValue;
-//   };
-// };
-
-// const uniqId = createRandomIdFromRangeGenerator(0,10);
-// uniqId();
-
-
 const generateComment = (_, index) => ({
   id: index,
   avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
