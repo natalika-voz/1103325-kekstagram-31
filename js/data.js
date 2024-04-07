@@ -56,7 +56,7 @@ const generatePost = (_, index) => ({
 });
 
 // функция, которая создает массив из 25 объектов (постов)
-const generatePosts = (length = MOCK_POSTS_COUNT) =>
+const generateMockPosts = (length = MOCK_POSTS_COUNT) =>
   Array.from({ length: length }, generatePost);
 
-generatePosts();
+export { generateMockPosts };
