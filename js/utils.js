@@ -10,7 +10,7 @@ export const getRandomArrayElement = (elements) => elements[getRandomInteger(0, 
 
 export const checkStringLength = (string, length) => string.length <= length;
 
-export const checkIsPalindrom = (string) => {
+export const checkIsPalindrome = (string) => {
   let reversed = '';
 
   for (let i = 0; i < string.length; i++) {
