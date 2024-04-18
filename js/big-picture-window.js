@@ -1,14 +1,43 @@
-
 const modalEl = document.querySelector('.big-picture');
-const picturesContainerEl = document.querySelector('.pictures');
 const closeModalEl = modalEl.querySelector('.big-picture__cancel');
+
+export function createBigPicture({ url, likes, comments, description }) {
+  const imgEl = modalEl.querySelector('.big-picture__img').querySelector('img');
+  const likesCount = modalEl.querySelector('.likes-count');
+  const socialComments = modalEl.querySelector('.social__comments');
+  const socialCommentTemplate = socialComments.querySelector('.social__comment');
+  const commentsCaption = modalEl.querySelector('.social__caption');
+  const commentsCount = modalEl.querySelector('.social__comment-count');
+  const commentsLoader = modalEl.querySelector('.social__comments-loader');
+
+  const socialCommentsFragment = document.createDocumentFragment();
+
+  imgEl.src = url;
+  likesCount.textContent = likes;
+  socialComments.innerHTML = '';
+
+  comments.forEach((comment) => {
+    const socialComment = socialCommentTemplate.cloneNode(true);
+
+    socialComment.querySelector('.social__picture').src = comment.avatar;
+    socialComment.querySelector('.social__picture').alt = comment.name;
+    socialComment.querySelector('.social__text').textContent = comment.message;
+
+    socialCommentsFragment.appendChild(socialComment);
+  });
+
+  socialComments.appendChild(socialCommentsFragment);
+  commentsCaption.textContent = description;
+  commentsCount.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
+}
 
 function closeModal() {
   modalEl.classList.add('hidden');
   document.body.classList.remove('modal-open');
 }
 
-function openModal() {
+export function openModal() {
   modalEl.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
@@ -22,10 +51,3 @@ function openModal() {
     }
   });
 }
-
-picturesContainerEl.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  console.log(evt.target);
-  openModal();
-});
-// Окно должно открываться при клике на миниатюру. Данные для окна (изображение, комментарии, лайки и так далее) берите из того же объекта, который использовался для отрисовки соответствующей миниатюры.
