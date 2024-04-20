@@ -19,3 +19,5 @@ export const checkIsPalindrome = (string) => {
 
   return string === reversed;
 };
+
+export const isEscapeKey = (evt) => evt.key === 'Escape';

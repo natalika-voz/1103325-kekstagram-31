@@ -1,3 +1,5 @@
+import { isEscapeKey } from './utils';
+
 const modalEl = document.querySelector('.big-picture');
 const closeModalEl = modalEl.querySelector('.big-picture__cancel');
 
@@ -32,10 +34,11 @@ export function createBigPicture({ url, likes, comments, description }) {
   commentsLoader.classList.add('hidden');
 }
 
-function closeModal() {
-  modalEl.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-}
+const onModalEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    closeModal();
+  }
+};
 
 export function openModal() {
   modalEl.classList.remove('hidden');
@@ -45,9 +48,12 @@ export function openModal() {
     closeModal();
   });
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closeModal();
-    }
-  });
+  document.addEventListener('keydown', onModalEscKeydown);
+}
+
+function closeModal() {
+  modalEl.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+
+  document.removeEventListener('keydown', onModalEscKeydown);
 }
