@@ -5,18 +5,18 @@ const closeModalEl = modalEl.querySelector('.big-picture__cancel');
 
 export function createBigPicture({ url, likes, comments, description }) {
   const imgEl = modalEl.querySelector('.big-picture__img').querySelector('img');
-  const likesCount = modalEl.querySelector('.likes-count');
-  const socialComments = modalEl.querySelector('.social__comments');
-  const socialCommentTemplate = socialComments.querySelector('.social__comment');
-  const commentsCaption = modalEl.querySelector('.social__caption');
-  const commentsCount = modalEl.querySelector('.social__comment-count');
-  const commentsLoader = modalEl.querySelector('.social__comments-loader');
+  const likesCountEl = modalEl.querySelector('.likes-count');
+  const commentsListEl = modalEl.querySelector('.social__comments');
+  const socialCommentTemplate = commentsListEl.querySelector('.social__comment');
+  const commentsCaptionEl = modalEl.querySelector('.social__caption');
+  const commentsCountEl = modalEl.querySelector('.social__comment-count');
+  const commentsLoaderEl = modalEl.querySelector('.social__comments-loader');
 
   const socialCommentsFragment = document.createDocumentFragment();
 
   imgEl.src = url;
-  likesCount.textContent = likes;
-  socialComments.innerHTML = '';
+  likesCountEl.textContent = likes;
+  commentsListEl.innerHTML = '';
 
   comments.forEach((comment) => {
     const socialComment = socialCommentTemplate.cloneNode(true);
@@ -28,10 +28,10 @@ export function createBigPicture({ url, likes, comments, description }) {
     socialCommentsFragment.appendChild(socialComment);
   });
 
-  socialComments.appendChild(socialCommentsFragment);
-  commentsCaption.textContent = description;
-  commentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  commentsListEl.appendChild(socialCommentsFragment);
+  commentsCaptionEl.textContent = description;
+  commentsCountEl.classList.add('hidden');
+  commentsLoaderEl.classList.add('hidden');
 }
 
 const onModalEscKeydown = (evt) => {
@@ -56,4 +56,6 @@ function closeModal() {
   document.body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onModalEscKeydown);
+  document.removeEventListener('keydown', onModalEscKeydown);
 }
+
