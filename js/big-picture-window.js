@@ -1,41 +1,32 @@
+import { isEscapeKey } from './utils';
+import { addComments } from './comments';
+
 const modalEl = document.querySelector('.big-picture');
 const closeModalEl = modalEl.querySelector('.big-picture__cancel');
 
 export function createBigPicture({ url, likes, comments, description }) {
   const imgEl = modalEl.querySelector('.big-picture__img').querySelector('img');
-  const likesCount = modalEl.querySelector('.likes-count');
-  const socialComments = modalEl.querySelector('.social__comments');
-  const socialCommentTemplate = socialComments.querySelector('.social__comment');
-  const commentsCaption = modalEl.querySelector('.social__caption');
-  const commentsCount = modalEl.querySelector('.social__comment-count');
-  const commentsLoader = modalEl.querySelector('.social__comments-loader');
-
-  const socialCommentsFragment = document.createDocumentFragment();
+  const likesCountEl = modalEl.querySelector('.likes-count');
+  const commentsListEl = modalEl.querySelector('.social__comments');
+  const socialCaptionEl = modalEl.querySelector('.social__caption');
+  const commentsCountEl = modalEl.querySelector('.social__comment-count');
+  const commentsLoaderEl = modalEl.querySelector('.social__comments-loader');
 
   imgEl.src = url;
-  likesCount.textContent = likes;
-  socialComments.innerHTML = '';
+  likesCountEl.textContent = likes;
+  socialCaptionEl.textContent = description;
 
-  comments.forEach((comment) => {
-    const socialComment = socialCommentTemplate.cloneNode(true);
+  addComments(commentsListEl, comments);
 
-    socialComment.querySelector('.social__picture').src = comment.avatar;
-    socialComment.querySelector('.social__picture').alt = comment.name;
-    socialComment.querySelector('.social__text').textContent = comment.message;
-
-    socialCommentsFragment.appendChild(socialComment);
-  });
-
-  socialComments.appendChild(socialCommentsFragment);
-  commentsCaption.textContent = description;
-  commentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  commentsCountEl.classList.add('hidden');
+  commentsLoaderEl.classList.add('hidden');
 }
 
-function closeModal() {
-  modalEl.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-}
+const onModalEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    closeModal();
+  }
+};
 
 export function openModal() {
   modalEl.classList.remove('hidden');
@@ -45,9 +36,13 @@ export function openModal() {
     closeModal();
   });
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closeModal();
-    }
-  });
+  document.addEventListener('keydown', onModalEscKeydown);
+}
+
+function closeModal() {
+  modalEl.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+
+  document.removeEventListener('keydown', onModalEscKeydown);
+  document.removeEventListener('keydown', onModalEscKeydown);
 }
