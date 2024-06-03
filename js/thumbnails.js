@@ -1,8 +1,6 @@
-const createThumbnails = (thumbnails) => {
+const buildThumbnails = (thumbnails) => {
   const pictures = document.querySelector('.pictures');
   const picture = document.querySelector('#picture').content.querySelector('.picture');
-
-
   const picturesFragment = document.createDocumentFragment();
 
   thumbnails.forEach(({ url, comments, description, likes, id }) => {
@@ -21,4 +19,4 @@ const createThumbnails = (thumbnails) => {
   pictures.appendChild(picturesFragment);
 };
 
-export { createThumbnails };
+export { buildThumbnails };

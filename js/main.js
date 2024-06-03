@@ -1,13 +1,14 @@
+import './forms.js';
 import { generateMockPosts } from './data.js';
-import { createThumbnails } from './thumbnails.js';
+import { buildThumbnails } from './thumbnails.js';
 import { createBigPicture, openModal } from './big-picture-window.js';
 
 const thumbnails = generateMockPosts();
 const picturesContainerEl = document.querySelector('.pictures');
-// вызов функции с аргументом
-createThumbnails(thumbnails);
+// Добавляем миниатюры в DOM
+buildThumbnails(thumbnails);
 
-picturesContainerEl.addEventListener('click', (evt) => {
+const openBigPicture = (evt) => {
   const currentThumbnailEl = evt.target.closest('.picture');
   const pictureId = currentThumbnailEl.dataset.pictureId;
 
@@ -18,4 +19,6 @@ picturesContainerEl.addEventListener('click', (evt) => {
     createBigPicture(currentThumbnailData);
     openModal();
   }
-});
+};
+
+picturesContainerEl.addEventListener('click', openBigPicture);
