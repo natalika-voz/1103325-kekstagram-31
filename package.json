@@ -10,6 +10,9 @@
   "bugs": {
     "url": "https://github.com/htmlacademy-javascript/1103325-kekstagram-31/issues"
   },
+  "dependencies": {
+    "pristinejs": "^1.1.0"
+  },
   "devDependencies": {
     "eslint": "8.48.0",
     "eslint-config-htmlacademy": "9.1.1",
