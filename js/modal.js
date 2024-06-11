@@ -16,12 +16,12 @@ export function openModal(el) {
     closeModal(el);
   });
 
-  // document.addEventListener('keydown', onModalEscKeydown);
+  document.addEventListener('keydown', (evt) => {
+    onModalEscKeydown(evt, el);
+  }, { once: true });
 }
 
 function closeModal(el) {
   el.classList.add('hidden');
   document.body.classList.remove('modal-open');
-
-  // document.removeEventListener('keydown', onModalEscKeydown);
 }
