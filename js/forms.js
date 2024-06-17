@@ -1,42 +1,40 @@
-import Pristine from 'pristinejs';
 
-const form = document.querySelector('.img-upload__form');
-const overlayForm = document.querySelector('.img-upload__overlay');
+import { isEscapeKey } from './utils';
 
-const config = {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper--error',
+
+const closeFormBtn = document.querySelector('#upload-cancel');
+
+const onCloseFormBtnClick = () => closeForm();
+
+const onDocumentKeydown = (evt) => {
+  if(isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeForm();
+    // if(document.activeElement === hashtagInput || document.activeElement === commentInput){
+    //   evt.stopPropagation();
+    // } else {
+    //   form.reset();
+  }
 };
 
-const pristine = new Pristine(form, config);
+function closeForm () {
+  overlayForm.classList.add('hidden');
+  pageBody.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+  closeFormBtn.removeEventListener('click', onCloseFormBtnClick);
+  uploadFileControl.value = '';
+}
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
 
-  const isValid = pristine.validate();
+// form.addEventListener('submit', (evt) => {
+//   evt.preventDefault();
 
-  if (isValid) {
-    console.log('Можно отправлять');
-  } else {
-    console.log('Форма невалидна');
-  }
-});
+//   const isValid = pristine.validate();
 
-overlayForm.classList.add('hidden');
+//   if (isValid) {
+//     console.log('Можно отправлять');
+//   } else {
+//     console.log('Форма невалидна');
+//   }
+// });
 
-// export function cancelForm() {
-//   closeButton.classList.add('hidden');
-//   document.body.classList.remove('modal-open');
-// }
-
-// export function openModal() {
-//   modalEl.classList.remove('hidden');
-//   document.body.classList.add('modal-open');
-
-//   closeModalEl.addEventListener('click', () => {
-//     closeModal();
-//   });
-
-//   document.addEventListener('keydown', onModalEscKeydown);
-// }

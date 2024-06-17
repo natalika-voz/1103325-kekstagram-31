@@ -14,7 +14,7 @@ export function openModal(el) {
 
   close.addEventListener('click', () => {
     closeModal(el);
-  });
+  }, { once: true });
 
   document.addEventListener('keydown', (evt) => {
     onModalEscKeydown(evt, el);
@@ -25,3 +25,4 @@ function closeModal(el) {
   el.classList.add('hidden');
   document.body.classList.remove('modal-open');
 }
+
