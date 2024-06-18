@@ -43,6 +43,10 @@ function initFormValidation(form, hashtagInput) {
   pristine.addValidator(hashtagInput, validateHashtagUniqueness, 'хэштеги повторяются', 3, false);
 }
 
+function resetForm() {
+  uploadFileControlEl.value = '';
+}
+
 export function initUploadForm() {
   initFormValidation(formEl, hashtagInputEl);
 
