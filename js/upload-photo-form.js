@@ -1,11 +1,10 @@
 import Pristine from 'pristinejs';
 import { openModal } from './modal';
 
-const form = document.querySelector('.img-upload__form');
-const uploadFileControl = form.querySelector('#upload-file');
-const overlayForm = form.querySelector('.img-upload__overlay');
-const hashtagInput = form.querySelector('.text__hashtags');
-const commentInput = form.querySelector('.text__description');
+const formEl = document.querySelector('.img-upload__form');
+const uploadFileControlEl = formEl.querySelector('#upload-file');
+const overlayFormEl = formEl.querySelector('.img-upload__overlay');
+const hashtagInputEl = formEl.querySelector('.text__hashtags');
 
 const config = {
   classTo: 'img-upload__field-wrapper',
@@ -35,15 +34,19 @@ const validateHashtagUniqueness = (value) => {
   return uniqueHashtags.size === hashtags.length;
 };
 
-export function initUploadForm() {
+function initFormValidation(form, hashtagInput) {
   const pristine = new Pristine(form, config);
 
   // Добавляем валидаторы с соответствующими сообщениями об ошибках
   pristine.addValidator(hashtagInput, validateHashtagCount, 'превышено количество хэштегов', 1, false);
   pristine.addValidator(hashtagInput, validateHashtagFormat, 'введён невалидный хэштег', 2, false);
   pristine.addValidator(hashtagInput, validateHashtagUniqueness, 'хэштеги повторяются', 3, false);
+}
 
-  uploadFileControl.addEventListener('change', () => {
-    openModal(overlayForm);
+export function initUploadForm() {
+  initFormValidation(formEl, hashtagInputEl);
+
+  uploadFileControlEl.addEventListener('change', () => {
+    openModal(overlayFormEl);
   });
 }
