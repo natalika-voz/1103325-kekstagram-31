@@ -1,5 +1,4 @@
 import Pristine from 'pristinejs';
-import { openModal } from './modal';
 
 const formEl = document.querySelector('.img-upload__form');
 const uploadFileControlEl = formEl.querySelector('#upload-file');
@@ -43,7 +42,7 @@ function initFormValidation(form, hashtagInput) {
   pristine.addValidator(hashtagInput, validateHashtagUniqueness, 'хэштеги повторяются', 3, false);
 }
 
-function resetForm() {
+export function resetForm() {
   uploadFileControlEl.value = '';
 }
 
@@ -51,6 +50,20 @@ export function initUploadForm() {
   initFormValidation(formEl, hashtagInputEl);
 
   uploadFileControlEl.addEventListener('change', () => {
-    openModal(overlayFormEl);
+    const closeEl = overlayFormEl.querySelector('.cancel');
+
+    overlayFormEl.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+
+    closeEl.addEventListener(
+      'click',
+      () => {
+        overlayFormEl.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+        resetForm();
+      },
+      { once: true }
+    );
   });
 }
+

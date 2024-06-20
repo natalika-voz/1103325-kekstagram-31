@@ -3,7 +3,6 @@ import { initUploadForm } from './upload-photo-form.js';
 import { generateMockPosts } from './data.js';
 import { buildThumbnails } from './thumbnails.js';
 import { buildBigPicture } from './big-picture.js';
-import { openModal } from './modal.js';
 
 function createApp() {
   // Добавляем миниатюры в DOM
@@ -27,7 +26,16 @@ function createApp() {
     if (currentThumbnailEl) {
       evt.preventDefault();
       buildBigPicture(bigPictureEl, currentThumbnailData);
-      openModal(bigPictureEl);
+
+      const closeEl = bigPictureEl.querySelector('.cancel');
+
+      bigPictureEl.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+
+      closeEl.addEventListener('click', () => {
+        bigPictureEl.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+      }, { once: true });
     }
   };
 
