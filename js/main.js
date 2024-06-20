@@ -1,21 +1,47 @@
+// import './forms.js';
+import { initUploadForm } from './upload-photo-form.js';
 import { generateMockPosts } from './data.js';
-import { createThumbnails } from './thumbnails.js';
-import { createBigPicture, openModal } from './big-picture-window.js';
+import { buildThumbnails } from './thumbnails.js';
+import { buildBigPicture } from './big-picture.js';
 
-const thumbnails = generateMockPosts();
-const picturesContainerEl = document.querySelector('.pictures');
-// вызов функции с аргументом
-createThumbnails(thumbnails);
+function createApp() {
+  // Добавляем миниатюры в DOM
+  const thumbnails = generateMockPosts();
+  buildThumbnails(thumbnails);
 
-picturesContainerEl.addEventListener('click', (evt) => {
-  const currentThumbnailEl = evt.target.closest('.picture');
-  const pictureId = currentThumbnailEl.dataset.pictureId;
+  const picturesContainerEl = document.querySelector('.pictures');
+  const bigPictureEl = document.querySelector('.big-picture');
 
-  const currentThumbnailData = thumbnails.find((thumbnail) => thumbnail.id === Number(pictureId));
+  const openBigPicture = (evt) => {
+    const currentThumbnailEl = evt.target.closest('.picture');
 
-  if (currentThumbnailEl) {
-    evt.preventDefault();
-    createBigPicture(currentThumbnailData);
-    openModal();
-  }
-});
+    if (!currentThumbnailEl) {
+      return;
+    }
+
+    const pictureId = currentThumbnailEl.dataset.pictureId;
+
+    const currentThumbnailData = thumbnails.find((thumbnail) => thumbnail.id === Number(pictureId));
+
+    if (currentThumbnailEl) {
+      evt.preventDefault();
+      buildBigPicture(bigPictureEl, currentThumbnailData);
+
+      const closeEl = bigPictureEl.querySelector('.cancel');
+
+      bigPictureEl.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+
+      closeEl.addEventListener('click', () => {
+        bigPictureEl.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+      }, { once: true });
+    }
+  };
+
+  picturesContainerEl.addEventListener('click', openBigPicture);
+
+  initUploadForm();
+}
+
+createApp();
