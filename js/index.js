@@ -1,14 +1,18 @@
-// import './forms.js';
-import { initUploadForm } from './upload-photo-form.js';
+import { initUploadForm } from './upload-photo-form/index.js';
 import { generateMockPosts } from './data.js';
 import { buildThumbnails } from './thumbnails.js';
 import { buildBigPicture } from './big-picture.js';
 
 function createApp() {
-  // Добавляем миниатюры в DOM
+  // получаем данные для постов
   const thumbnails = generateMockPosts();
+  // Добавляем миниатюры в DOM
   buildThumbnails(thumbnails);
 
+  // инициализируем модалку загрузки фото
+  initUploadForm();
+
+  // инициализируем модалку показа полной информации поста
   const picturesContainerEl = document.querySelector('.pictures');
   const bigPictureEl = document.querySelector('.big-picture');
 
@@ -40,8 +44,6 @@ function createApp() {
   };
 
   picturesContainerEl.addEventListener('click', openBigPicture);
-
-  initUploadForm();
 }
 
 createApp();
