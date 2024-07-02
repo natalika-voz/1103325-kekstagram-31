@@ -1,10 +1,5 @@
 import Pristine from 'pristinejs';
 
-const formEl = document.querySelector('.img-upload__form');
-const uploadFileControlEl = formEl.querySelector('#upload-file');
-const overlayFormEl = formEl.querySelector('.img-upload__overlay');
-const hashtagInputEl = formEl.querySelector('.text__hashtags');
-
 const config = {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
@@ -38,36 +33,11 @@ const validateHashtagUniqueness = (value) => {
   return uniqueHashtags.size === hashtags.length;
 };
 
-function initFormValidation(form, hashtagInput) {
-  const pristine = new Pristine(form, config);
+export function initFormValidation(formEl, hashtagInput) {
+  const pristine = new Pristine(formEl, config);
 
   // Добавляем валидаторы с соответствующими сообщениями об ошибках
   pristine.addValidator(hashtagInput, validateHashtagCount, 'превышено количество хэштегов', 1, false);
   pristine.addValidator(hashtagInput, validateHashtagFormat, 'введён невалидный хэштег', 2, false);
   pristine.addValidator(hashtagInput, validateHashtagUniqueness, 'хэштеги повторяются', 3, false);
-}
-
-export function resetForm() {
-  uploadFileControlEl.value = '';
-}
-
-export function initUploadForm() {
-  initFormValidation(formEl, hashtagInputEl);
-
-  uploadFileControlEl.addEventListener('change', () => {
-    const closeEl = overlayFormEl.querySelector('.cancel');
-
-    overlayFormEl.classList.remove('hidden');
-    document.body.classList.add('modal-open');
-
-    closeEl.addEventListener(
-      'click',
-      () => {
-        overlayFormEl.classList.add('hidden');
-        document.body.classList.remove('modal-open');
-        resetForm();
-      },
-      { once: true }
-    );
-  });
 }

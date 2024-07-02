@@ -1,4 +1,4 @@
-import { addComments } from './comments';
+import { addComments } from '../comments';
 
 export function buildBigPicture(el, data) {
   const imgEl = el.querySelector('.big-picture__img').querySelector('img');
