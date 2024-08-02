@@ -1,7 +1,7 @@
 const buildThumbnails = (thumbnails) => {
   const pictures = document.querySelector('.pictures');
   const picture = document.querySelector('#picture').content.querySelector('.picture');
-  const picturesFragment = document.createDocumentFragment();
+  const fragment = document.createDocumentFragment();
 
   thumbnails.forEach(({ url, comments, description, likes, id }) => {
     const pictureElement = picture.cloneNode(true);
@@ -13,10 +13,10 @@ const buildThumbnails = (thumbnails) => {
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
     pictureElement.dataset.pictureId = id;
 
-    picturesFragment.appendChild(pictureElement);
+    fragment.appendChild(pictureElement);
   });
 
-  pictures.appendChild(picturesFragment);
+  pictures.appendChild(fragment);
 };
 
 export { buildThumbnails };
