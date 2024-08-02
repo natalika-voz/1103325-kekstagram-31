@@ -2,6 +2,7 @@ import { initUploadForm } from './upload-photo-form/index.js';
 import { initBigPictureModal } from './big-picture-modal/index.js';
 import { buildThumbnails } from './thumbnails.js';
 import { fetchPosts } from './api.js';
+import { showError } from './alert.js';
 
 function createApp() {
   // получаем данные для постов
@@ -17,7 +18,7 @@ function createApp() {
       initBigPictureModal(posts);
     })
     .catch((err) => {
-      console.log(err);
+      showError(err);
     });
 }
 
