@@ -1,5 +1,4 @@
-// const url = 'https://31.javascript.htmlacademy.pro/kekstagram';
-const url = 'https://31.jjjjjavascript.htmlacademy.pro/kekstagram';
+const url = 'https://31.javascript.htmlacademy.pro/kekstagram';
 
 export function fetchPosts() {
   return fetch(`${url}/data`)
