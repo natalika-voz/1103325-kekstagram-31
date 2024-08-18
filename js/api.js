@@ -5,12 +5,10 @@ export function fetchPosts() {
     .then((response) => response.json());
 }
 
-export function createPost(data) {
+export function createPost(formData) {
   return fetch(url, {
     method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+    body: formData,
+  })
+    .then((response) => response.json());
 }
