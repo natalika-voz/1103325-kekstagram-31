@@ -8,6 +8,9 @@ const formEl = document.querySelector('.img-upload__form');
 const uploadFileControlEl = formEl.querySelector('#upload-file');
 const overlayFormEl = formEl.querySelector('.img-upload__overlay');
 const hashtagInputEl = formEl.querySelector('.text__hashtags');
+const imagePreview = formEl.querySelector('.img-upload__preview');
+const sliderContainer = document.querySelector('.img-upload__effect-level');
+const imageDefault = document.querySelector('.img-upload__preview img');
 
 function initSubmitForm() {
   formEl.addEventListener('submit', (evt) => {
@@ -21,6 +24,10 @@ function initSubmitForm() {
 
         // start reset form
         formEl.reset();
+        imagePreview.removeAttribute('style');
+        sliderContainer.classList.add('hidden');
+        imageDefault.removeAttribute('style');
+        // resetPhotoFilter(); // Сброс фильтра
         // end reset form
       })
       .catch(() => {
