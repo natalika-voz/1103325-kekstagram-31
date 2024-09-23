@@ -4,10 +4,10 @@ import { buildThumbnails } from './thumbnails.js';
 import { fetchPosts } from './api.js';
 import { showLoadPostsError } from './alert.js';
 
-function initFilters(length) {
+function initFilters(postsLength) {
   const imgFilters = document.querySelector('.img-filters');
 
-  if (length > 1) {
+  if (postsLength > 1) {
     imgFilters.classList.remove('img-filters--inactive');
   }
 }
