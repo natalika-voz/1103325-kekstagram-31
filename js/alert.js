@@ -1,49 +1,45 @@
-function buildPostsLoadError(container) {
+function buildNotification(el) {
+  document.body.appendChild(el);
+
+  window.setTimeout(() => {
+    el.remove();
+  }, 5000);
+}
+
+function buildPostsLoadError() {
   const template = document.querySelector('#posts-load-error').content;
   const el = template.querySelector('.data-error');
-  container.appendChild(el);
+  buildNotification(el);
 
   return el;
 }
 
-function buildSubmitPostError(container) {
+function buildSubmitPostError() {
   const template = document.querySelector('#image-load-error').content;
   const el = template.querySelector('.error');
-  container.appendChild(el);
+  buildNotification(el);
 
   return el;
 }
 
-function buildSubmitPostSuccess(container) {
+function buildSubmitPostSuccess() {
   const template = document.querySelector('#image-load-success').content;
   const el = template.querySelector('.success');
-  container.appendChild(el);
+  buildNotification(el);
 
   return el;
 }
 
 export function showLoadPostsError() {
-  const el = buildPostsLoadError(document.body);
-
-  window.setTimeout(() => {
-    el.remove();
-  }, 5000);
+  buildPostsLoadError();
 }
 
 export function showSubmitPostError() {
-  const el = buildSubmitPostError(document.body);
-
-  window.setTimeout(() => {
-    el.remove();
-  }, 5000);
+  buildSubmitPostError();
 }
 
 export function showSubmitPostSuccess() {
-  const el = buildSubmitPostSuccess(document.body);
-
-  window.setTimeout(() => {
-    el.remove();
-  }, 5000);
+  buildSubmitPostSuccess();
 }
 
 // Нужно сделать общую ошибку "Что-то пошло не так"
