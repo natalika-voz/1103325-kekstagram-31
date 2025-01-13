@@ -8,6 +8,7 @@ const formEl = document.querySelector('.img-upload__form');
 const uploadFileControlEl = formEl.querySelector('#upload-file');
 const overlayFormEl = formEl.querySelector('.img-upload__overlay');
 const hashtagInputEl = formEl.querySelector('.text__hashtags');
+const descriptionInputEl = formEl.querySelector('.text__description');
 const imagePreview = formEl.querySelector('.img-upload__preview');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const imageDefault = document.querySelector('.img-upload__preview img');
@@ -22,13 +23,10 @@ function initSubmitForm() {
       .then(() => {
         showSubmitPostSuccess();
 
-        // start reset form
         formEl.reset();
         imagePreview.removeAttribute('style');
         sliderContainer.classList.add('hidden');
         imageDefault.removeAttribute('style');
-        // resetPhotoFilter(); // Сброс фильтра
-        // end reset form
       })
       .catch(() => {
         showSubmitPostError();
@@ -52,6 +50,7 @@ export function initUploadForm() {
     overlayFormEl.classList.remove('hidden');
     document.body.classList.add('modal-open');
 
+    // Закрытие формы при клике на кнопку "Закрыть"
     closeEl.addEventListener(
       'click',
       () => {
@@ -59,7 +58,19 @@ export function initUploadForm() {
         document.body.classList.remove('modal-open');
         resetForm();
       },
-      { once: true }
     );
+
+    // Закрытие формы при нажатии на клавишу Escape
+    document.addEventListener('keydown', (event) => {
+      const isEscEvent = (evt) => evt.key === 'Escape';
+      const isHashtagInputFocused = document.activeElement !== hashtagInputEl;
+      const isDescriptionInputFocused = document.activeElement !== descriptionInputEl;
+
+      if (isEscEvent(event) && isHashtagInputFocused && isDescriptionInputFocused) {
+        overlayFormEl.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+        resetForm();
+      }
+    });
   });
 }
